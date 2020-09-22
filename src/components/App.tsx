@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import '../App.css';
 import $ from 'jquery';
-import HK from '../images/HK.jpg'
+//import HK from '../images/HK.jpg'
 import Tensor from './TensorLoading';
 
 
