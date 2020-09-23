@@ -23,7 +23,7 @@ export default function Mappage()
 
         <div class="contact-section">
             <h1>Contact Us</h1>
-            <span class="border"></span>
+            <div class="contact-border"></div>
             <form class="contact-form">
                 <input type="text" class="contact-form-text" placeholder="Your name"></input>
                 <input type="text" class="contact-form-text" placeholder="Your email"></input>
