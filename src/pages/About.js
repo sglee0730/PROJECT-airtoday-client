@@ -86,7 +86,7 @@ export default function Mappage()
             </div>
 
             <div class="section" id="p5">
-                <span class="name">Song Chang Won</span>
+                <span class="name">Son Chang Won</span>
                 <span class="border"></span>
                 <p>
                 동현님사랑해요동현님사랑해요동현님사랑해요동현님사랑해요동현님사랑해요

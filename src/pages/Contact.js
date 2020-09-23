@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css';
+import '../ContactApp.css';
 import { Link } from 'react-router-dom';
 
 export default function Mappage() 
@@ -20,7 +20,17 @@ export default function Mappage()
                 <h3>Life <span>Today</span></h3>
             </div>
         </header>
-        <h1>Contact Us</h1>
+
+        <div class="contact-section">
+            <h1>Contact Us</h1>
+            <span class="border"></span>
+            <form class="contact-form">
+                <input type="text" class="contact-form-text" placeholder="Your name"></input>
+                <input type="text" class="contact-form-text" placeholder="Your email"></input>
+                <textarea class="contact-form-text" placeholder="Your message"></textarea>
+                <input type="submit" class="contact-form-btn" value="Send"></input>
+            </form>
+        </div>
         </>
     );
 }

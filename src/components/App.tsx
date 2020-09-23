@@ -4,7 +4,6 @@ import $ from 'jquery';
 import Tensor from './TensorLoading';
 import { Link } from 'react-router-dom';
 
-
 declare global {
   interface Window {
     kakao: any;
