@@ -135,25 +135,29 @@ td {
   height: 25px;
 }
 
+nav {
+  background-color: red;
+}
+
 nav ul {
   float: right;
   margin-right: 50px;
-  height: 35px;
+  height: 15px;
 }
 
 nav ul li {
   display: inline-block;
   line-height: auto;
-  margin: 0 30px;
-  color: white;
-  font-size: 25px;
+  margin: 0 25px;
+  color: black;
+  font-size: 20px;
   text-transform: uppercase;
   text-decoration: none;
 }
 
 .logo {
-  height: 45px;
-  width: 80px;
+  height: 40px;
+  width: 70px;
 }
 
 .result {

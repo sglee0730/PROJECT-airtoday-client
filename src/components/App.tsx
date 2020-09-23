@@ -181,6 +181,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <nav>
+        <img className="logo" src={Logo} alt=""/>
         <ul>
           <Link to="/"><li>Home</li></Link>
           <Link to="/about"><li>About Us</li></Link>
@@ -188,9 +189,6 @@ const App: React.FC = () => {
           <Link to="/login"><li>Login</li></Link>
         </ul>
       </nav>
-      <header className="header">
-        <img className="logo" src={Logo} alt=""/>
-      </header>
 
     <div className='kakaoMap' id="map" />
       <div className="hAddr">
