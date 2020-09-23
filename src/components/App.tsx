@@ -3,6 +3,7 @@ import '../App.css';
 import $ from 'jquery';
 import Tensor from './TensorLoading';
 import { Link } from 'react-router-dom';
+import Logo from '../images/logo.png';
 
 declare global {
   interface Window {
@@ -179,7 +180,6 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <input type="checkbox" id="check" />
       <nav>
         <ul>
           <Link to="/"><li>Home</li></Link>
@@ -189,9 +189,7 @@ const App: React.FC = () => {
         </ul>
       </nav>
       <header className="header">
-        <div className="left_area">
-          <h3>Life <span>Today</span></h3>
-        </div>
+        <img className="logo" src={Logo} alt=""/>
       </header>
 
     <div className='kakaoMap' id="map" />
