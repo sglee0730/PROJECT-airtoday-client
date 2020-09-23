@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import '../App.css';
 import $ from 'jquery';
-import HK from '../images/HK.jpg'
 import Tensor from './TensorLoading';
+import { Link } from 'react-router-dom';
 
 
 declare global {
@@ -181,23 +181,19 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <input type="checkbox" id="check" />
+      <nav>
+        <ul>
+          <Link to="/"><li>Home</li></Link>
+          <Link to="/about"><li>About Us</li></Link>
+          <Link to="/contact"><li>Contact</li></Link>
+          <Link to="/login"><li>Login</li></Link>
+        </ul>
+      </nav>
       <header className="header">
-        <label htmlFor="check">
-          <i className="fas fa-bars" id="sidebar_btn"></i>
-        </label>
         <div className="left_area">
-          <h3>Life <span>Meter</span></h3>
+          <h3>Life <span>Today</span></h3>
         </div>
       </header>
-
-      <div className="sidebar">
-        <div className="profile_info">
-          <img src={HK} className="profile_image" alt="" />
-          <h4>Welcome!</h4>
-        </div>
-        <a href="#"><i className="fas fa-desktop"></i><span>Dashboard</span></a>
-        <a href="#"><i className="fas fa-cogs"></i><span>Components</span></a>
-      </div>
 
     <div className='kakaoMap' id="map" />
       <div className="hAddr">

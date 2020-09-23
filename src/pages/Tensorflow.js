@@ -1,5 +1,4 @@
-import { Tensor } from '@tensorflow/tfjs';
-import React , {useContext} from 'react';
+import React from 'react';
 import '../App.css';
 import { SampleConsumer } from '../sample';
 
