@@ -5,6 +5,8 @@ import Tensor from './TensorLoading';
 import { Link } from 'react-router-dom';
 import Logo from '../images/logo.png';
 
+const { getStateColor } = require('../StateColor');
+
 declare global {
   interface Window {
     kakao: any;
@@ -136,6 +138,9 @@ const App: React.FC = () => {
           clickable: true
         });
       });
+      
+      console.log(markers[0])
+      const getColor = new getStateColor()
 
       for (let n = 0; n < data.positions.length; n++) {
         geocoder.coord2Address(data.positions[n].lng, data.positions[n].lat, function (result: any, status: any) {
@@ -179,7 +184,7 @@ const App: React.FC = () => {
   }, [])
 
   return (
-    <div className="App">
+    <div>
       <nav>
         <img className="logo" src={Logo} alt=""/>
         <ul>
@@ -190,12 +195,12 @@ const App: React.FC = () => {
         </ul>
       </nav>
 
-    <div className='kakaoMap' id="map" />
-      <div className="hAddr">
-        <span>지도중심기준 주소정보</span>
-        <span id="centerAddr"></span>
-      </div>
-      <Tensor/>
+      <div className='kakaoMap' id="map" />
+        <div className="hAddr">
+          <span>지도중심기준 주소정보</span>
+          <span id="centerAddr"></span>
+        </div>
+        <Tensor/>
     </div>
   );
 }

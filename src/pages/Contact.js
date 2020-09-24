@@ -1,25 +1,22 @@
 import React from 'react';
 import '../ContactApp.css';
 import { Link } from 'react-router-dom';
+import Logo from '../images/logo.png';
 
 export default function Mappage() 
 {
   
     return (
-        <>
+      <div>
         <nav>
-        <ul>
-          <Link to="/"><li>Home</li></Link>
-          <Link to="/about"><li>About Us</li></Link>
-          <Link to="/contact"><li>Contact</li></Link>
-          <Link to="/login"><li>Login</li></Link>
-        </ul>
+            <img className="logo" src={Logo} alt=""/>
+            <ul>
+            <Link to="/"><li>Home</li></Link>
+            <Link to="/about"><li>About Us</li></Link>
+            <Link to="/contact"><li>Contact</li></Link>
+            <Link to="/login"><li>Login</li></Link>
+            </ul>
         </nav>
-        <header className="header">
-            <div className="left_area">
-                <h3>Life <span>Today</span></h3>
-            </div>
-        </header>
 
         <div class="contact-section">
             <h1>Contact Us</h1>
@@ -31,6 +28,6 @@ export default function Mappage()
                 <input type="submit" class="contact-form-btn" value="Send"></input>
             </form>
         </div>
-        </>
+      </div>
     );
 }
