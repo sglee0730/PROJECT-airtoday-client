@@ -131,40 +131,38 @@ const App: React.FC = () => {
       }
     }
 
-    $.get('//apis.map.kakao.com/download/web/data/chicken.json', function (data: any) {
-      let markers = $(data.positions).map(function (i: any, position: any) {
-        return new window.kakao.maps.Marker({
-          position: new window.kakao.maps.LatLng(position.lat, position.lng),
-          clickable: true
+      // 실제 측정 파일
+      $.get('test.json', function (data: any) {
+        let markers = $(data.positions).map(function (i: any, position: any) {
+          return new window.kakao.maps.Marker({
+            position: new window.kakao.maps.LatLng(position.lat, position.lon)
+          });
         });
-      });
-      
-      console.log(markers[0])
-      const getColor = new getStateColor()
 
-      for (let n = 0; n < data.positions.length; n++) {
-        geocoder.coord2Address(data.positions[n].lng, data.positions[n].lat, function (result: any, status: any) {
-          if (status === window.kakao.maps.services.Status.OK) {
-            var lot_number_address = result[0].address.address_name
-
-            let infowindow = new window.kakao.maps.InfoWindow({
-              content:
-                '<b class="infoTitle">' + lot_number_address + '</b>' +
-                '<table>' +
-                '<tr align="center"><th rowspan="2">미세먼지</th><th>PM 10</th><th>PM 2.5</th><th>PM 1</th></tr>' +
-                '<tr align="center"><td>값</td><td>값</td><td>값</td></tr>' +
-                '<tr align="center"><th rowspan="2">도수</th><th>소음</th><th>온도</th><th>습도</th></tr>' +
-                '<tr align="center"><td>값</td><td>값</td><td>값</td></tr>' +
-                '<tr align="center"><th rowspan="2">가스</th><th>스모그</th><th>메탄</th><th>일산화탄소</th></tr>' +
-                '<tr align="center"><td>값</td><td>값</td><td>값</td></tr>' +
-                '</table>'
-            });
-
-            window.kakao.maps.event.addListener(markers[n], 'mouseover', makeMouseOver(map, markers[n], infowindow));
-            window.kakao.maps.event.addListener(markers[n], 'mouseout', makeMouseOut(infowindow))
-          }
-        })
-      }
+        console.log(markers[0])
+        const getColor = new getStateColor()
+  
+        for (let n = 0; n < data.positions.length; n++) {
+          geocoder.coord2Address(data.positions[n].lon, data.positions[n].lat, function (result: any, status: any) {
+            if (status === window.kakao.maps.services.Status.OK) {
+              var lot_number_address = result[0].address.address_name
+  
+              let infowindow = new window.kakao.maps.InfoWindow({
+                content:
+                  '<b class="infoTitle">' + lot_number_address + '</b>' +
+                  '<table>' +
+                  '<tr align="center"><th rowspan="2">미세먼지</th><th style="background-color:' + getColor.FD(data.positions[n].PM10) + '">PM 10</th><th style="background-color:' + getColor.superFD(data.positions[n].PM25) + '">PM 2.5</th><th style="background-color:' + getColor.superFD(data.positions[n].PM1) + '">PM 1</th></tr>' +
+                  '<tr align="center"><td style="background-color:' + getColor.FD(data.positions[n].PM10) + '">' + data.positions[n].PM10 + '</td><td style="background-color:' + getColor.superFD(data.positions[n].PM25) + '">' + data.positions[n].PM25 +'</td><td style="background-color:' + getColor.superFD(data.positions[n].PM1) + '">' + data.positions[n].PM1 +'</td></tr>' +
+                  '<tr align="center"><th rowspan="2">도수</th><th style="background-color:' + getColor.noise(data.positions[n].Noise) + '">소음</th><th style="background-color:' + getColor.temp(data.positions[n].Temp) + '">온도</th><th style="background-color:' + getColor.humi(data.positions[n].Humi) + '">습도</th></tr>' +
+                  '<tr align="center"><td style="background-color:' + getColor.noise(data.positions[n].Noise) + '">' + data.positions[n].Noise +'</td><td style="background-color:' + getColor.temp(data.positions[n].Temp) + '">' + data.positions[n].Temp +'</td><td style="background-color:' + getColor.humi(data.positions[n].Humi) + '">' + data.positions[n].Humi +'</td></tr>' +
+                  '</table>'
+              });
+  
+              window.kakao.maps.event.addListener(markers[n], 'mouseover', makeMouseOver(map, markers[n], infowindow));
+              window.kakao.maps.event.addListener(markers[n], 'mouseout', makeMouseOut(infowindow))
+            }
+          })
+        }
 
       function makeMouseOver(map: any, markers: any, infowindow: any) {
         return function () {
@@ -177,9 +175,7 @@ const App: React.FC = () => {
           infowindow.close();
         };
       };
-
       clusterer.addMarkers(markers);
-
     })
   }, [])
 
