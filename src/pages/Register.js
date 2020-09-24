@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 import '../main.css';
 import '../util.css';
 import '../images/icons/favicon.ico';
@@ -10,52 +11,76 @@ import '../vendor/css-hamburgers/hamburgers.min.css';
 import '../vendor/animsition/css/animsition.min.css';
 import '../vendor/select2/select2.min.css';
 import '../vendor/daterangepicker/daterangepicker.css';
-import { Link } from 'react-router-dom';
 
-export default class Login extends Component {
-	constructor() {
-		super()
-		this.state = {
-		  email: '',
-		  password: '',
-		  errors: {}
-		}
-	
-		this.onChange = this.onChange.bind(this)
-		this.onSubmit = this.onSubmit.bind(this)
-	  }
-	
-	  onChange(e) {
-		this.setState({ [e.target.name]: e.target.value })
-	  }
-	  onSubmit(e) {
-		e.preventDefault()
-	
-		const user = {
-		  email: this.state.email,
-		  password: this.state.password
-		}
-	  }
-      
-      render() {
+
+export default class Register extends Component {
+  constructor() {
+    super()
+    this.state = {
+      first_name: '',
+      last_name: '',
+      email: '',
+      password: '',
+      errors: {}
+    }
+
+    this.onChange = this.onChange.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+  }
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+  onSubmit(e) {
+    e.preventDefault()
+
+    const newUser = {
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      email: this.state.email,
+      password: this.state.password
+    }
+  }
+
+  render() {
 
     return (
         <>
-
+       <nav>
+        <ul>
+          <Link to="/"><li>Home</li></Link>
+          <Link to="/about"><li>About Us</li></Link>
+          <Link to="/contact"><li>Contact</li></Link>
+          <Link to="/login"><li>Login</li></Link>
+        </ul>
+        </nav>
 		<div className="container-login100">
 			<div className="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
 				<form className="login100-form validate-form" noValidate onSubmit={this.onSubmit}>
 					<span className="login100-form-title p-b-49">
-						Login
+						Register
 					</span>
 
-					<div className="wrap-input100 validate-input m-b-23">
+					<div className="wrap-input100 validate-input m-b-23" data-validate="FirstName is required">
+						<span className="label-input100">FirstName</span>
+						<input className="input100" type="text" name="first_name" placeholder="Type your firstname" value={this.state.first_name} onChange={this.onChange}></input>
+						<span className="focus-input100" data-symbol="&#xf206;"></span>
+					</div>
+
+					<div className="wrap-input100 validate-input m-b-23" data-validate="LastName is required">
+						<span className="label-input100">LastName</span>
+						<input className="input100" type="text" name="last_name" placeholder="Type your lastname" value={this.state.last_name} onChange={this.onChange}></input>
+						<span className="focus-input100" data-symbol="&#xf190;"></span>
+					</div>
+
+					<div className="wrap-input100 validate-input m-b-23" data-validate="Email is required">
 						<span className="label-input100">Username</span>
 						<input className="input100" type="text" name="email" placeholder="Type your username" value={this.state.email} onChange={this.onChange}></input>
 						<span className="focus-input100" data-symbol="&#xf206;"></span>
 					</div>
 
-					<div className="wrap-input100 validate-input" data-validate="Password is required">
+
+                    <div className="wrap-input100 validate-input" data-validate="Password is required">
 						<span className="label-input100">Password</span>
 						<input className="input100" type="password" name="password" placeholder="Type your password" value={this.state.password} onChange={this.onChange}></input>
 						<span className="focus-input100" data-symbol="&#xf190;"></span>
@@ -71,7 +96,7 @@ export default class Login extends Component {
 						<div className="wrap-login100-form-btn">
 							<div className="login100-form-bgbtn"></div>
 							<button className="login100-form-btn" type="submit">
-								Login
+								Register
 							</button>
 						</div>
 					</div>
@@ -96,21 +121,18 @@ export default class Login extends Component {
 						</a>
 					</div>
 
-					<div className="flex-col-c p-t-155">
-						<span className="txt1 p-b-17">
-							Or Sign Up Using
-						</span>
 
-						<Link to="/register" className="txt2">
-							Sign Up
-						</Link>
-					</div>
 				</form>
 			</div>
 		</div>
+	
+
 	<div id="dropDownSelect1"></div>
+
+
     </>
     
         );
       }
 }
+

@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import '../App.css';
 import $ from 'jquery';
 import Tensor from './TensorLoading';
-import { Link } from 'react-router-dom';
-import Logo from '../images/logo.png';
 
 const { getStateColor } = require('../StateColor');
 
@@ -181,16 +179,6 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <nav>
-        <img className="logo" src={Logo} alt=""/>
-        <ul>
-          <Link to="/"><li>Home</li></Link>
-          <Link to="/about"><li>About Us</li></Link>
-          <Link to="/contact"><li>Contact</li></Link>
-          <Link to="/login"><li>Login</li></Link>
-        </ul>
-      </nav>
-
       <div className='kakaoMap' id="map" />
         <div className="hAddr">
           <span>지도중심기준 주소정보</span>

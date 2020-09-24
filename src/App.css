@@ -33,13 +33,15 @@
   text-align: center;
 }
 
+
+
 .team-section {
-  height: 95vh;
-  overflow: hidden;
+  height: 95vh;  
   text-align: center;
   background: #34495e;
-  padding: 60px;
+  padding: 40px 0;
   font-size: 40px;
+
 }
 
 .team-section h1 {
@@ -56,6 +58,11 @@
   height: 3px;
   background: #3498db;
   margin-bottom: 40px;
+}
+
+.section p {
+  color: white;
+  font-size: 25px;
 }
 
 .ps {
@@ -179,4 +186,10 @@ nav ul li {
   height: 50px;
   border-radius: 2px;
   z-index: 5;
+
+}
+
+
+.nav_ul_and_li {
+  margin-bottom: 0rem;
 }
