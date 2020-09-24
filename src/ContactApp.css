@@ -17,7 +17,7 @@ h1 {
 
 .contact-section h1 {
     text-align: center;
-    color: #ddd;
+    color: black;
 }
 
 .contact-border {
@@ -40,10 +40,11 @@ h1 {
     box-sizing: border-box;
     margin: 16px 0;
     border: 0;
-    background: #111;
+    border-radius: 10px;
+    background: #ddd;
     padding: 20px 40px;
     outline: none;
-    color: #ddd;
+    color: gray;
     font-size: 25px;
     transition: 0.5s;
 }
