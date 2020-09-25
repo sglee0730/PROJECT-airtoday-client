@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 * {
   font-family: "montserrat", sans-serif;
   margin: 0;
@@ -23,17 +25,6 @@
   z-index:1;
   padding:5px;
 }
-
-.infoTitle {
-  font-size: 20px;
-  margin:5px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  text-align: center;
-}
-
-
 
 .team-section {
   height: 95vh;  
@@ -108,25 +99,6 @@
   text-align: center;
   text-transform: uppercase;
   font-size: 25px;
-}
-
-table {
-  border: 1px solid #ffffff;
-  border-collapse: collapse;
-}
-
-th, td {
-  border: 1px solid#ffffff;
-}
-
-th {
-  background-color: #303030;
-  color: white;
-}
-
-td {
-  background-color: #6e6e6e;
-  color: white;
 }
 
 #centerAddr {
@@ -210,4 +182,30 @@ nav ul li {
   top: 5px;
   right: 10px;
   cursor: pointer;
+}
+
+.filter {
+  position: absolute;
+  width:350px;
+  opacity: .8;
+  text-align: center;
+  background: #ffe259;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #ffa751, #ffe259);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #ffa751, #ffe259); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+table {
+  text-align: center;
+  width: 340px;
+  margin: auto;
+  margin-bottom: 10px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  overflow: hidden;
+  box-shadow:  0 2px 12px rgba(32,32,32,.3);
+  border-radius: 10px 10px 0 0;
+  background: #08548a;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
 }

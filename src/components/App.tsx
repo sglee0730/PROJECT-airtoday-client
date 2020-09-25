@@ -18,7 +18,6 @@ declare global {
 
 const App: React.FC = () => {
   const [chartVisible, setChartVisible] = useState("none")
-  const ref = useRef(null)
 
   useEffect(() => {
     let container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
@@ -143,13 +142,13 @@ const App: React.FC = () => {
       const imageOption = { offset: new window.kakao.maps.Point(0, 0)}; 
 
       let markers = $(data.positions).map(function (i: any, position: any) {
-        if (data.positions[i].PM25 < 2) {
+        if (data.positions[i].PM25 < 16) {
           imageSrc = greenDot
         }
-        else if (data.positions[i].PM25 < 3) {
+        else if (data.positions[i].PM25 < 36) {
           imageSrc = yellowDot
         }
-        else if (data.positions[i].PM25 < 5) {
+        else if (data.positions[i].PM25 < 76) {
           imageSrc = redDot
         }
         else imageSrc = purpleDot
@@ -168,14 +167,14 @@ const App: React.FC = () => {
             let lot_number_address = result[0].address.address_name
 
             let infowindow = new window.kakao.maps.InfoWindow({
-              content:
-                '<b class="infoTitle">' + lot_number_address + '</b>' +
+              content: '<div class="filter">' +
+                '<b>' + lot_number_address + '</b>' +
+                '<p>' + data.positions[n].DT.trim() + '<p/>' +
                 '<table>' +
-                '<tr align="center"><th rowspan="2">미세먼지</th><th style="background-color:' + getColor.FD(data.positions[n].PM10) + '">PM 10</th><th style="background-color:' + getColor.superFD(data.positions[n].PM25) + '">PM 2.5</th><th style="background-color:' + getColor.superFD(data.positions[n].PM1) + '">PM 1</th></tr>' +
-                '<tr align="center"><td style="background-color:' + getColor.FD(data.positions[n].PM10) + '">' + data.positions[n].PM10 + '</td><td style="background-color:' + getColor.superFD(data.positions[n].PM25) + '">' + data.positions[n].PM25 +'</td><td style="background-color:' + getColor.superFD(data.positions[n].PM1) + '">' + data.positions[n].PM1 +'</td></tr>' +
-                '<tr align="center"><th rowspan="2">도수</th><th style="background-color:' + getColor.noise(data.positions[n].Noise) + '">소음</th><th style="background-color:' + getColor.temp(data.positions[n].Temp) + '">온도</th><th style="background-color:' + getColor.humi(data.positions[n].Humi) + '">습도</th></tr>' +
-                '<tr align="center"><td style="background-color:' + getColor.noise(data.positions[n].Noise) + '">' + data.positions[n].Noise +'</td><td style="background-color:' + getColor.temp(data.positions[n].Temp) + '">' + data.positions[n].Temp +'</td><td style="background-color:' + getColor.humi(data.positions[n].Humi) + '">' + data.positions[n].Humi +'</td></tr>' +
-                '</table>'
+                '<tr><th>PM 10</th><th>PM 2.5</th><th>PM 1</th><th>소음</th><th>온도</th><th>습도</th></tr>' +
+                '<tr style={color:"#000000"}><td style="background-color:' + getColor.FD(data.positions[n].PM10) + '">' + data.positions[n].PM10 + '</td><td style="background-color:' + getColor.superFD(data.positions[n].PM25) + '">' + data.positions[n].PM25 +'</td><td style="background-color:' + getColor.superFD(data.positions[n].PM1) + '">' + data.positions[n].PM1 +'</td><td style="background-color:' + getColor.noise(data.positions[n].Noise) + '">' + data.positions[n].Noise +'</td><td style="background-color:' + getColor.temp(data.positions[n].Temp) + '">' + data.positions[n].Temp +'</td><td style="background-color:' + getColor.humi(data.positions[n].Humi) + '">' + data.positions[n].Humi +'</td></tr>' +
+                '</table>' +
+                '</div>'
             });
 
             window.kakao.maps.event.addListener(markers[n], 'mouseover', makeMouseOver(map, markers[n], infowindow));
@@ -201,36 +200,37 @@ const App: React.FC = () => {
     })
 
     let canvas:any = document.getElementById('myChart')
-    let ctx = canvas.getContext('2d')
+          let ctx = canvas.getContext('2d')
+      
+          let myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "1", "2"],
+              datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3, 1, 2],
+                backgroundColor: 
+                  'rgba(5, 136, 255, 0.2)',
+                borderColor: 
+                  'rgba(5, 136, 255, 1)',
+                borderWidth: 2,
+                hoverBorderColor : '#FFFE05',
+                hoverBorderWidth: 4,
+                pointHoverRadius: 9
+              }]
+            },
+            options: {
+              maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              }
+            }
+          });
 
-		let myChart = new Chart(ctx, {
-			type: 'line',
-			data: {
-				labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "1", "2"],
-				datasets: [{
-					label: '# of Votes',
-					data: [12, 19, 3, 5, 2, 3, 1, 2],
-					backgroundColor: 
-						'rgba(5, 136, 255, 0.2)',
-					borderColor: 
-						'rgba(5, 136, 255, 1)',
-					borderWidth: 2,
-					hoverBorderColor : '#FFFE05',
-					hoverBorderWidth: 4,
-					pointHoverRadius: 9
-				}]
-			},
-			options: {
-				maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
-				scales: {
-					yAxes: [{
-						ticks: {
-							beginAtZero: true
-						}
-					}]
-				}
-			}
-		});
 
   }, [])
 

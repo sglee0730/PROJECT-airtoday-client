@@ -1,7 +1,7 @@
 class getStateColor {
     superFD =  (data) => {
         if (data < 15) {
-            return '#00EC7C'
+            return '#00FF1A'
           }
           else if (data < 35) {
             return '#FBFA0B'
@@ -15,7 +15,7 @@ class getStateColor {
     }
     FD = (data) =>{
         if (data < 31) {
-            return '#00EC7C'
+            return '#00FF1A'
           }
           else if (data < 81) {
             return '#FBFA0B'
@@ -29,7 +29,7 @@ class getStateColor {
     }
     noise = (data) => {
         if (data < 0.7) {
-            return '#00EC7C'
+            return '#00FF1A'
           }
           else if (data < 1.4) {
             return '#FBFA0B'
@@ -49,7 +49,7 @@ class getStateColor {
             return '#FF9D08'
           }
           else if (data < 29) {
-            return '#21D204'
+            return '#00FF1A'
           }
           else {
             return '#FFFB00'
