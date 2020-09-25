@@ -174,7 +174,7 @@ nav ul li {
   position: absolute;
   width: 400px;
   height: 200px;
-  z-index: 5;
+  z-index: 3;
 }
 
 .close {
@@ -185,27 +185,26 @@ nav ul li {
 }
 
 .filter {
-  position: absolute;
-  width:350px;
+  width: 300px;
   opacity: .8;
-  text-align: center;
   background: #ffe259;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to left, #ffa751, #ffe259);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to left, #ffa751, #ffe259); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+  background: -webkit-linear-gradient(to left, #ffa751, #ffe259);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #ffa751, #ffe259); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  padding: 6px;
 }
 
 table {
-  text-align: center;
-  width: 340px;
+  width: auto;
   margin: auto;
-  margin-bottom: 10px;
-  border-collapse: collapse;
-  border-spacing: 0;
-  overflow: hidden;
-  box-shadow:  0 2px 12px rgba(32,32,32,.3);
-  border-radius: 10px 10px 0 0;
-  background: #08548a;
-  color: #fff;
+  text-align: center;
+  background: #fff;
   font-family: 'Montserrat', sans-serif;
+}
+
+tr {
+  border: 1px solid;
+}
+
+p {
+  text-align: right;
 }

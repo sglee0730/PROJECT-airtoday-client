@@ -169,11 +169,11 @@ const App: React.FC = () => {
             let infowindow = new window.kakao.maps.InfoWindow({
               content: '<div class="filter">' +
                 '<b>' + lot_number_address + '</b>' +
-                '<p>' + data.positions[n].DT.trim() + '<p/>' +
                 '<table>' +
-                '<tr><th>PM 10</th><th>PM 2.5</th><th>PM 1</th><th>소음</th><th>온도</th><th>습도</th></tr>' +
+                '<tr><td>PM 10</td><td>PM 2.5</td><td>PM 1</td><td>소음</td><td>온도</td><td>습도</td></tr>' +
                 '<tr style={color:"#000000"}><td style="background-color:' + getColor.FD(data.positions[n].PM10) + '">' + data.positions[n].PM10 + '</td><td style="background-color:' + getColor.superFD(data.positions[n].PM25) + '">' + data.positions[n].PM25 +'</td><td style="background-color:' + getColor.superFD(data.positions[n].PM1) + '">' + data.positions[n].PM1 +'</td><td style="background-color:' + getColor.noise(data.positions[n].Noise) + '">' + data.positions[n].Noise +'</td><td style="background-color:' + getColor.temp(data.positions[n].Temp) + '">' + data.positions[n].Temp +'</td><td style="background-color:' + getColor.humi(data.positions[n].Humi) + '">' + data.positions[n].Humi +'</td></tr>' +
                 '</table>' +
+                '<p>' + data.positions[n].DT.trim() + '<p/>' +
                 '</div>'
             });
 
@@ -199,37 +199,37 @@ const App: React.FC = () => {
       clusterer.addMarkers(markers);
     })
 
-    let canvas:any = document.getElementById('myChart')
-          let ctx = canvas.getContext('2d')
-      
-          let myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "1", "2"],
-              datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3, 1, 2],
-                backgroundColor: 
-                  'rgba(5, 136, 255, 0.2)',
-                borderColor: 
-                  'rgba(5, 136, 255, 1)',
-                borderWidth: 2,
-                hoverBorderColor : '#FFFE05',
-                hoverBorderWidth: 4,
-                pointHoverRadius: 9
-              }]
-            },
-            options: {
-              maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
-              scales: {
-                yAxes: [{
-                  ticks: {
-                    beginAtZero: true
-                  }
-                }]
-              }
+    let canvas: any = document.getElementById('myChart')
+    let ctx = canvas.getContext('2d')
+
+    let myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "1", "2"],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3, 1, 2],
+          backgroundColor:
+            'rgba(5, 136, 255, 0.2)',
+          borderColor:
+            'rgba(5, 136, 255, 1)',
+          borderWidth: 2,
+          hoverBorderColor: '#FFFE05',
+          hoverBorderWidth: 4,
+          pointHoverRadius: 9
+        }]
+      },
+      options: {
+        maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
             }
-          });
+          }]
+        }
+      }
+    });
 
 
   }, [])
