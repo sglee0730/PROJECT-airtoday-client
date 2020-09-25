@@ -136,10 +136,9 @@ const App: React.FC = () => {
     $.get('test.json', function (data: any) {
       let imageSrc = ''
       const imageSize = new window.kakao.maps.Size(20, 22)
-      const imageOption = { offset: new window.kakao.maps.Point(27, 69)}; 
+      const imageOption = { offset: new window.kakao.maps.Point(0, 0)}; 
 
       let markers = $(data.positions).map(function (i: any, position: any) {
-        console.log(data.positions[i].PM25)
         if (data.positions[i].PM25 < 2) {
           imageSrc = greenDot
         }
