@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import '../App.css';
 import $ from 'jquery';
-import Chart from 'chart.js'
 import Tensor from './TensorLoading';
 import redDot from '../images/1.png'
 import yellowDot from '../images/2.png'
@@ -185,52 +184,17 @@ const App: React.FC = () => {
 
       function makeMouseOver(map: any, markers: any, infowindow: any) {
         return function () {
-          setChartVisible("flex")
           infowindow.open(map, markers); 
         };
       };
 
       function makeMouseOut(infowindow: any) {
         return function () {
-          setChartVisible("none")
           infowindow.close();
-        };
+        }
       };
       clusterer.addMarkers(markers);
     })
-
-    let canvas: any = document.getElementById('myChart')
-    let ctx = canvas.getContext('2d')
-
-    let myChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "1", "2"],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3, 1, 2],
-          backgroundColor:
-            'rgba(5, 136, 255, 0.2)',
-          borderColor:
-            'rgba(5, 136, 255, 1)',
-          borderWidth: 2,
-          hoverBorderColor: '#FFFE05',
-          hoverBorderWidth: 4,
-          pointHoverRadius: 9
-        }]
-      },
-      options: {
-        maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });
-
 
   }, [])
 
@@ -241,10 +205,6 @@ const App: React.FC = () => {
         <span>지도중심기준 주소정보</span>
         <span id="centerAddr"></span>
       </div>
-      <div className="popup-content" style={{ display: chartVisible }}>
-      <canvas id="myChart"></canvas>
-      </div>
-
       <Tensor />
     </div>
   );
