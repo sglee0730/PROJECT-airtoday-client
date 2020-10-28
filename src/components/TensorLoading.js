@@ -5,11 +5,15 @@ import * as tf from '@tensorflow/tfjs';
 export default function TensorLoading() {
     const [loading, setloading] = useState(true);
     const [currentData, setData] = useState(0);
+    const [boxColor, setBoxColor] = useState({
+        backgroundColor: "",
+        color: ""
+    })
 
     useEffect(
         function () {
-            const x = [28, 23, 25, 25, 26, 25, 27, 28, 32, 30, 35, 32, 34, 30, 29];
-            const y = [23, 25, 25, 26, 25, 27, 28, 32, 30, 35, 32, 34, 30, 29, 26];
+            const x = [8, 3, 5, 5, 6, 5, 7, 8, 2, 3, 5, 2, 4, 3, 9];
+            const y = [3, 5, 5, 6, 5, 7, 8, 2, 3, 5, 2, 4, 3, 9, 6];
             const preVal = [38];
             var res;
 
@@ -21,19 +25,27 @@ export default function TensorLoading() {
             const ys = tf.tensor2d(y, [15, 1]);
 
             model.fit(xs, ys, { epochs: 750 }).then(() => {
-                tf.round(model.predict(tf.tensor2d(preVal, [1, 1]))).print();
+                tf.round(model.predict(tf.tensor2d(preVal, [1, 1])));
                 res = tf.round(model.predict(tf.tensor2d(preVal, [1, 1])));
                 res = res.toString();
                 res = res.substring(14, 16);
 
-                if (res <= 30)
-                    res = "내일 예측: 좋음";
-                else if (res >= 31 && res <= 80)
-                    res = "내일 예측: 보통";
-                else if (res >= 81 && res <= 150)
-                    res = "내일 예측: 나쁨";
-                else
-                    res = "내일 예측: 매우나쁨";
+                if (res <= 30) {
+                    res = "내일 : 좋음";
+                    setBoxColor({backgroundColor: "green", color: "white"})
+                }
+                else if (res >= 31 && res <= 80) {
+                    res = "내일 : 보통";
+                    setBoxColor({backgroundColor: "#ffe259", color: "black"})
+                }
+                else if (res >= 81 && res <= 150) {
+                    res = "내일 : 나쁨";
+                    setBoxColor({backgroundColor: "red", color: "white"})
+                }
+                else {
+                    res = "내일 : 매우나쁨";
+                    setBoxColor({backgroundColor: "#9B0000", color: "white"})
+                }
                 setData(res);
                 setloading(false);
             });
@@ -48,7 +60,7 @@ export default function TensorLoading() {
 
     else {
         return (
-        <div className="result">
+        <div className="result" style={boxColor}>
             { currentData.toString() }
         </div>
         )
