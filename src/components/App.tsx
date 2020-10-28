@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../App.css';
 import $ from 'jquery';
 import Tensor from './TensorLoading';
@@ -15,27 +15,30 @@ declare global {
   }
 }
 
-const App: React.FC = () => {
-  const [chartVisible, setChartVisible] = useState("none")
+const App: React.FC = (props) => {
+  const [modalVisible, setModalVisible] = useState(["none", "none", "none", "none"])
+  const [mapLocation, setMapLocation] = useState({panTo({}) {}})
 
   useEffect(() => {
+
     let container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
     let options = { //지도를 생성할 때 필요한 기본 옵션
       center: new window.kakao.maps.LatLng(35.832259, 128.757553), //지도의 중심좌표.
       level: 11 //지도의 레벨(확대, 축소 정도)
     };
-
+  
     let map = new window.kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    setMapLocation(map)
 
     let geocoder = new window.kakao.maps.services.Geocoder();
 
     searchAddrFromCoords(map.getCenter(), displayCenterInfo);
 
     let mapTypeControl = new window.kakao.maps.MapTypeControl()
-    map.addControl(mapTypeControl, window.kakao.maps.ControlPosition.TOPRIGHT)
+    map.addControl(mapTypeControl, window.kakao.maps.ControlPosition.TOPLEFT)
 
     let zoomControl = new window.kakao.maps.ZoomControl();
-    map.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT);
+    map.addControl(zoomControl, window.kakao.maps.ControlPosition.LEFT)
 
     let clusterOptions = {
       map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
@@ -138,7 +141,7 @@ const App: React.FC = () => {
     $.get('test.json', function (data: any) {
       let imageSrc = ''
       const imageSize = new window.kakao.maps.Size(20, 22)
-      const imageOption = { offset: new window.kakao.maps.Point(0, 0)}; 
+      const imageOption = { offset: new window.kakao.maps.Point(0, 0) };
 
       let markers = $(data.positions).map(function (i: any, position: any) {
         if (data.positions[i].PM25 < 16) {
@@ -170,7 +173,7 @@ const App: React.FC = () => {
                 '<b>' + lot_number_address + '</b>' +
                 '<table>' +
                 '<tr><td>PM 10</td><td>PM 2.5</td><td>PM 1</td><td>소음</td><td>온도</td><td>습도</td></tr>' +
-                '<tr style={color:"#000000"}><td style="background-color:' + getColor.FD(data.positions[n].PM10) + '">' + data.positions[n].PM10 + '</td><td style="background-color:' + getColor.superFD(data.positions[n].PM25) + '">' + data.positions[n].PM25 +'</td><td style="background-color:' + getColor.superFD(data.positions[n].PM1) + '">' + data.positions[n].PM1 +'</td><td style="background-color:' + getColor.noise(data.positions[n].Noise) + '">' + data.positions[n].Noise +'</td><td style="background-color:' + getColor.temp(data.positions[n].Temp) + '">' + data.positions[n].Temp +'</td><td style="background-color:' + getColor.humi(data.positions[n].Humi) + '">' + data.positions[n].Humi +'</td></tr>' +
+                '<tr style={color:"#000000"}><td style="background-color:' + getColor.FD(data.positions[n].PM10) + '">' + data.positions[n].PM10 + '</td><td style="background-color:' + getColor.superFD(data.positions[n].PM25) + '">' + data.positions[n].PM25 + '</td><td style="background-color:' + getColor.superFD(data.positions[n].PM1) + '">' + data.positions[n].PM1 + '</td><td style="background-color:' + getColor.noise(data.positions[n].Noise) + '">' + data.positions[n].Noise + '</td><td style="background-color:' + getColor.temp(data.positions[n].Temp) + '">' + data.positions[n].Temp + '</td><td style="background-color:' + getColor.humi(data.positions[n].Humi) + '">' + data.positions[n].Humi + '</td></tr>' +
                 '</table>' +
                 '<p>' + data.positions[n].DT.trim() + '<p/>' +
                 '</div>'
@@ -184,7 +187,7 @@ const App: React.FC = () => {
 
       function makeMouseOver(map: any, markers: any, infowindow: any) {
         return function () {
-          infowindow.open(map, markers); 
+          infowindow.open(map, markers);
         };
       };
 
@@ -193,17 +196,77 @@ const App: React.FC = () => {
           infowindow.close();
         }
       };
-      clusterer.addMarkers(markers);
-    })
 
+      clusterer.addMarkers(markers);
+
+    })
   }, [])
+
+  const panTo = (lat:number, lng:number) => {
+    // 이동할 위도 경도 위치를 생성합니다 
+    const moveLatLon = new window.kakao.maps.LatLng(lat, lng);
+
+    // 지도 중심을 부드럽게 이동시킵니다
+    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+    mapLocation.panTo(moveLatLon);
+  }
+
+  const modalMouseOver = (stateIdx: number) => {
+    setModalVisible(modalVisible.map((value, index) => {
+      if (index === stateIdx) {
+        return "flex"
+      }
+      return "none"
+    }))
+  }
+
+  const modalMouseOut = (stateIdx: number) => {
+    setModalVisible(modalVisible.map((value, index) => {
+      if (index === stateIdx) {
+        return "none"
+      }
+      return "none"
+    }))
+  }
 
   return (
     <div>
+      <div className="map_carousel">
+        <a href="#" onClick={() => panTo(37.275127, 127.009438)}>경기도</a>
+        <a href="#" onClick={() => panTo(37.885382, 127.729768)}>강원도</a>
+        <a href="#" onClick={() => panTo(36.635723, 127.491345)}>충청북도</a>
+        <a href="#" onClick={() => panTo(36.658837, 126.672791)}>충청남도</a>
+        <a href="#" onClick={() => panTo(35.820308, 127.108770)}>전라북도</a>
+        <a href="#" onClick={() => panTo(34.816210, 126.462913)}>전라남도</a>
+        <a href="#" onClick={() => panTo(36.575991, 128.505599)}>경상북도</a>
+        <a href="#" onClick={() => panTo(35.238229, 128.692398)}>경상남도</a>
+        <a href="#" onClick={() => panTo(33.488816, 126.498075)}>제주도</a>
+      </div>
       <div className='kakaoMap' id="map" />
       <div className="hAddr">
-        <span>지도중심기준 주소정보</span>
         <span id="centerAddr"></span>
+      </div>
+      <div className="modal_good" style={{ display: modalVisible[0] }}>
+        <b>좋음</b>
+      </div>
+      <div className="modal_moderate" style={{ display: modalVisible[1] }}>
+        <b>보통</b>
+      </div>
+      <div className="modal_unhealthy" style={{ display: modalVisible[2] }}>
+        <b>나쁨</b>
+      </div>
+      <div className="modal_hazardous" style={{ display: modalVisible[3] }}>
+        <b>매우 나쁨</b>
+      </div>
+      <div className="labels">
+        <table>
+          <tr>
+            <td id="labels_good" onMouseOver={() => modalMouseOver(0)} onMouseOut={() => modalMouseOut(0)}>좋음</td>
+            <td id="labels_moderate" onMouseOver={() => modalMouseOver(1)} onMouseOut={() => modalMouseOut(1)}>보통</td>
+            <td id="labels_unhealthy" onMouseOver={() => modalMouseOver(2)} onMouseOut={() => modalMouseOut(2)}>나쁨</td>
+            <td id="labels_hazardous" onMouseOver={() => modalMouseOver(3)} onMouseOut={() => modalMouseOut(3)}>매우 나쁨</td>
+          </tr>
+        </table>
       </div>
       <Tensor />
     </div>
