@@ -142,7 +142,6 @@ nav ul li {
   color: black;
   z-index:1;
   padding:1px;
-  transition: 0.2s;
 }
 
 .loading {
@@ -161,18 +160,6 @@ nav ul li {
   margin-bottom: 0rem;
 }
 
-.popup-content {
-  background: #fff;
-  padding: 20px;
-  margin-top: 32%;
-  margin-left: 10px;
-  border-radius: 5px;
-  position: absolute;
-  width: 400px;
-  height: 200px;
-  z-index: 3;
-}
-
 .close {
   position: absolute;
   top: 5px;
@@ -180,13 +167,35 @@ nav ul li {
   cursor: pointer;
 }
 
-.filter {
-  width: 300px;
-  opacity: .8;
-  background: #ffe259;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to left, #ffa751, #ffe259);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left, #ffa751, #ffe259); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  padding: 6px;
+.infowindow {
+  position: relative;
+  width: 270px;
+  padding: 4px;
+  float: left;
+  margin-right: 2px;
+  vertical-align: middle;
+}
+
+.infowindow b{
+  background-color: goldenrod;
+}
+
+.infowindow hr {
+  border-color: black;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.infowindow p {
+  font-size: 17px;
+  text-align: left;
+  padding-left: 5px;
+}
+
+#data {
+  padding-left: 20px;
+  text-align: center;
 }
 
 table {
@@ -263,7 +272,16 @@ p {
   color: white;
 }
 
+#modal_in_p {
+  font-family: 'Sunflower', sans-serif;
+  font-size: 16px;
+  position: absolute;
+  top: 60px;
+  text-align: left;
+}
+
 .modal_good {
+  font-weight: 50;
   position: absolute;
   width: 170px;
   height: 200px;
@@ -370,10 +388,65 @@ p {
   vertical-align: auto;
 }
 
+.progress_bar .pro-bar {
+  background: hsl(0, 0%, 97%);
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.1) inset;
+  height:4px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 12px;
+  margin-top: 35px;
+  position: relative;
+}
 
+.progress_bar .progress_number{
+  float: right;
+}
 
+.progress_bar .progress_bar_title{
+  color: hsl(218, 4%, 50%);
+  font-size: 15px;
+  font-weight: 300;
+  position: relative;
+  top: -28px;
+  z-index: 1;
+}
 
+#progress_number {
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 12px;
+}
 
-
+.progress_bar .progress-bar-inner {
+  background-color: hsl(0, 0%, 88%);
+  display: block;
+  width: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.progress_bar .progress-bar-inner:before {
+  content: "";
+  background-color: hsl(0, 0%, 100%);
+  border-radius: 50%;
+  width: 4px;
+  height: 4px;
+  position: absolute;
+  right: 1px;
+  top: 0;
+  z-index: 1;
+}
+.progress_bar .progress-bar-inner:after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background-color: inherit;
+  border-radius: 50%;
+  position: absolute;
+  right: -4px;
+  top: -5px;
+}
 
 

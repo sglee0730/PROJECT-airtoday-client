@@ -140,7 +140,7 @@ const App: React.FC = (props) => {
 
     $.get('test.json', function (data: any) {
       let imageSrc = ''
-      const imageSize = new window.kakao.maps.Size(20, 22)
+      const imageSize = new window.kakao.maps.Size(20, 20)
       const imageOption = { offset: new window.kakao.maps.Point(0, 0) };
 
       let markers = $(data.positions).map(function (i: any, position: any) {
@@ -157,7 +157,8 @@ const App: React.FC = (props) => {
         const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
         return new window.kakao.maps.Marker({
           position: new window.kakao.maps.LatLng(position.lat, position.lon),
-          image: markerImage
+          image: markerImage,
+          clickable: true
         });
       });
 
@@ -169,33 +170,100 @@ const App: React.FC = (props) => {
             let lot_number_address = result[0].address.address_name
 
             let infowindow = new window.kakao.maps.InfoWindow({
-              content: '<div class="filter">' +
+              removable: true,
+              content:
+                '<div class="infowindow">' +
                 '<b>' + lot_number_address + '</b>' +
-                '<table>' +
-                '<tr><td>PM 10</td><td>PM 2.5</td><td>PM 1</td><td>소음</td><td>온도</td><td>습도</td></tr>' +
-                '<tr style={color:"#000000"}><td style="background-color:' + getColor.FD(data.positions[n].PM10) + '">' + data.positions[n].PM10 + '</td><td style="background-color:' + getColor.superFD(data.positions[n].PM25) + '">' + data.positions[n].PM25 + '</td><td style="background-color:' + getColor.superFD(data.positions[n].PM1) + '">' + data.positions[n].PM1 + '</td><td style="background-color:' + getColor.noise(data.positions[n].Noise) + '">' + data.positions[n].Noise + '</td><td style="background-color:' + getColor.temp(data.positions[n].Temp) + '">' + data.positions[n].Temp + '</td><td style="background-color:' + getColor.humi(data.positions[n].Humi) + '">' + data.positions[n].Humi + '</td></tr>' +
-                '</table>' +
+                '<hr></hr>' +
+                `<div class="progress_bar">
+                  <div class="pro-bar">
+                    <small class="progress_bar_title">
+                      PM10
+                      <span class="progress_number">${data.positions[n].PM10}</span>
+                    </small>
+                    <span class="progress-bar-inner" style="background-color: ${getColor.FD(data.positions[n].PM10)}; width: ${100*data.positions[n].PM10/150}%;">
+                    </span>
+                </div>
+            </div>
+
+            <div class="progress_bar">
+                  <div class="pro-bar">
+                    <small class="progress_bar_title">
+                      PM25
+                      <span class="progress_number">${data.positions[n].PM25}</span>
+                    </small>
+                    <span class="progress-bar-inner" style="background-color: ${getColor.superFD(data.positions[n].PM25)}; width: ${100*data.positions[n].PM25/150}%;">
+                    </span>
+                </div>
+            </div>
+
+            <div class="progress_bar">
+                  <div class="pro-bar">
+                    <small class="progress_bar_title">
+                      PM1
+                      <span class="progress_number">${data.positions[n].PM1}</span>
+                    </small>
+                    <span class="progress-bar-inner" style="background-color: ${getColor.superFD(data.positions[n].PM1)}; width: ${100*data.positions[n].PM1/150}%;">
+                    </span>
+                </div>
+            </div>
+
+            <div class="progress_bar">
+                  <div class="pro-bar">
+                    <small class="progress_bar_title">
+                      소음
+                      <span class="progress_number">${data.positions[n].Noise}</span>
+                    </small>
+                    <span class="progress-bar-inner" style="background-color: ${getColor.noise(data.positions[n].Noise)}; width: ${100*data.positions[n].Noise/4}%;">
+                    </span>
+                </div>
+            </div>
+
+            <div class="progress_bar">
+                  <div class="pro-bar">
+                    <small class="progress_bar_title">
+                      온도
+                      <span class="progress_number">${data.positions[n].Temp}°C</span>
+                    </small>
+                    <span class="progress-bar-inner" style="background-color: ${getColor.temp(data.positions[n].Temp)}; width: ${100*(30+data.positions[n].Temp)/80}%;">
+                    </span>
+                </div>
+            </div>
+            
+            <div class="progress_bar">
+                  <div class="pro-bar">
+                    <small class="progress_bar_title">
+                      습도
+                      <span class="progress_number">${data.positions[n].Humi}</span>
+                    </small>
+                    <span class="progress-bar-inner" style="background-color: ${getColor.humi(data.positions[n].Humi)}; width: ${data.positions[n].Humi}%;">
+                    </span>
+                </div>
+            </div>` +
+                '<hr></hr>' +
                 '<p>' + data.positions[n].DT.trim() + '<p/>' +
                 '</div>'
             });
 
-            window.kakao.maps.event.addListener(markers[n], 'mouseover', makeMouseOver(map, markers[n], infowindow));
-            window.kakao.maps.event.addListener(markers[n], 'mouseout', makeMouseOut(infowindow))
+            window.kakao.maps.event.addListener(markers[n], 'click', makeOnClick(map, markers[n], infowindow));
+            //window.kakao.maps.event.addListener(markers[n], 'mouseout', makeMouseOut(infowindow))
           }
         })
       }
 
-      function makeMouseOver(map: any, markers: any, infowindow: any) {
+      function makeOnClick(map: any, markers: any, infowindow: any) {
         return function () {
           infowindow.open(map, markers);
         };
       };
 
+      /* 오버레이 겹침문제로 인포윈도우 깜빡거림
       function makeMouseOut(infowindow: any) {
         return function () {
           infowindow.close();
         }
-      };
+      }; 
+      */
 
       clusterer.addMarkers(markers);
 
@@ -248,15 +316,19 @@ const App: React.FC = (props) => {
       </div>
       <div className="modal_good" style={{ display: modalVisible[0] }}>
         <b>좋음</b>
+        <p id="modal_in_p">대기오염 관련 질환자군에서도 영향이 유발되지 않을 수준</p>
       </div>
       <div className="modal_moderate" style={{ display: modalVisible[1] }}>
         <b>보통</b>
+        <p id="modal_in_p">환자군에게 만성 노출시 경미한 영향이 유발될 수 있는 수준</p>
       </div>
       <div className="modal_unhealthy" style={{ display: modalVisible[2] }}>
         <b>나쁨</b>
+        <p id="modal_in_p">환자군 및 민감군(어린이,노약자 등)에게 유해한 영향 유발, 일반인도 건강상 불쾌감을 경험할 수 있는 수준</p>
       </div>
       <div className="modal_hazardous" style={{ display: modalVisible[3] }}>
         <b>매우 나쁨</b>
+        <p id="modal_in_p">환자군 및 민감군에게 급성 노출시 심각한 영향 유발, 일반인도 약한 영향이 유발될 수 있는 수준</p>
       </div>
       <div className="labels">
         <table>
