@@ -192,7 +192,6 @@ const App: React.FC = (props) => {
           infowindow.open(map, markers);
         };
       };
-
       /* 오버레이 겹침문제로 인포윈도우 깜빡거림
       function makeMouseOut(infowindow: any) {
         return function () {
@@ -200,7 +199,6 @@ const App: React.FC = (props) => {
         }
       }; 
       */
-
       clusterer.addMarkers(markers);
 
     })
