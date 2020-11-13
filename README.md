@@ -4,11 +4,8 @@
 * Embedded: Arduino nano, raspberry Pi(Worker node & Master node)
 
 # To Use
-```
-npm start  
-```   
-```
-yarn start
-```
+* ```npm start```  
+
+* ```yarn start```
 
   
